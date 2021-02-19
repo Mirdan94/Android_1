@@ -7,6 +7,12 @@
     android:background="@color/cardview_dark_background"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/text_view"/>
+
     <TextView
         android:id="@+id/text_view"
         android:layout_width="wrap_content"
