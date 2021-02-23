@@ -9,10 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.mozilla.javascript.Scriptable;
-
-import java.util.Scanner;
-
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvInput, tvOutput;
@@ -22,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     double num1 = Double.NaN, num2;
     private final char ADDITION = '+';
     private final char SUBTRACTION = '-';
-    private final char EQUALS = '=';
+    private final char EQUALS = 0;
     private char ACTION;
 
     @Override
@@ -36,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvInput.setText("");
-                tvOutput.setText("");
+                tvInput.setText(null);
+                tvOutput.setText(null);
 
             }
         });
@@ -124,48 +120,48 @@ public class MainActivity extends AppCompatActivity {
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                process = tvInput.getText().toString();
-                tvInput.setText(process + "+");
+                compute();
+                ACTION = ADDITION;
+                tvOutput.setText(String.valueOf(num1) + "+");
+                tvInput.setText(null);
             }
         });
         buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                process = tvInput.getText().toString();
-                tvInput.setText(process + "-");
+                compute();
+                ACTION = SUBTRACTION;
+                tvOutput.setText(String.valueOf(num1) + "-");
+                tvInput.setText(null);
             }
         });
         buttonEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                process = tvInput.getText().toString();
-                process = process.replaceAll("×","*");
-                process = process.replaceAll("%","/100");
-                process = process.replaceAll("÷","/");
-
-                Context rhino ;
-
-                rhino.setOptimizationLevel(-1);
-
-                String finalResult = "";
-
-                try {
-                    Scriptable scriptable = rhino.initStandardObjects();
-                    finalResult = rhino.evaluateString(scriptable,process,"javascript",1,null).toString();
-                }catch (Exception e){
-                    finalResult="0";
-                }
-
-                tvOutput.setText(finalResult);
+                compute();
+                ACTION = EQUALS;
+                tvOutput.setText(String.valueOf(num1));
+                tvInput.setText(null);
             }
         });
     }
+
     private void compute() {
-        if(!Double.isNaN(num1)) {
+        if (!Double.isNaN(num1)) {
+            num2 = Double.parseDouble(tvInput.getText().toString());
             switch (ACTION) {
                 case ADDITION:
-
+                    num1 = num1 + num2;
+                    break;
+                case SUBTRACTION:
+                    num1 = num1 - num2;
+                    break;
+                case EQUALS:
+                    break;
             }
+        }
+        else {
+            num1 = Double.parseDouble(tvInput.getText().toString());
         }
     }
 
