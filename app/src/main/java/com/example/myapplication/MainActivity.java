@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                num1 = Double.NaN;
+                num2 = Double.NaN;
                 tvInput.setText(null);
                 tvOutput.setText(null);
 
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 compute();
                 ACTION = EQUALS;
-                tvOutput.setText(String.valueOf(num1));
+                tvOutput.setText(tvOutput.getText().toString() + String.valueOf(num2) + "=" + String.valueOf(num1));
                 tvInput.setText(null);
             }
         });
