@@ -14,6 +14,8 @@ public class GreeterActivity extends AppCompatActivity {
     EditText nameField;
     Button saveButton;
 
+    static final String NAME_KEY = "name_key";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class GreeterActivity extends AppCompatActivity {
                 String name = nameField.getText().toString();
 
                 Intent intent = new Intent(GreeterActivity.this, IntentActivity.class);
-                intent.putExtra("key", name);
+                intent.putExtra(NAME_KEY, name);
                 startActivity(intent);
 
             }
